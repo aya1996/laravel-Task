@@ -45,10 +45,10 @@ class DepartmentController extends Controller
     
         $department = new Department();
         $department->name = $request->name;
-        $department->dept_manager = $request->price;
+        $department->dept_manager = $request->dept_manager;
       
     
-        if ($this->user->departments()->save($product))
+        if ($this->user->departments()->save($department))
             return response()->json([
                 'success' => true,
                 'department' => $department
