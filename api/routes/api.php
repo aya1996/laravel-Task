@@ -21,7 +21,7 @@ Route::post('register', 'UserController@register');
 Route::post('login', 'UserController@login');
 Route::get('open', 'DataController@open');
 
-Route::group(['middleware' => ['auth.jwt']], function() {
+Route::group(['middleware' => ['auth.jwt'], ['jwt.verify']], function() {
     Route::get('logout', 'ApiController@logout');
     Route::get('user', 'UserController@getAuthUser');
     Route::get('closed', 'DataController@closed');

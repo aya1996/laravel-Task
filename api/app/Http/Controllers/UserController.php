@@ -6,6 +6,8 @@ use App\Http\Requests\RegisterAuthRequest;
 use App\User;
 use Illuminate\Http\Request;
 use JWTAuth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
 
 class UserController extends Controller
@@ -24,10 +26,7 @@ class UserController extends Controller
             return $this->login($request);
         }
  
-        return response()->json([
-            'success' => true,
-            'data' => $user
-        ], 200);
+        return response()->json(compact('user','token'),201);
     }
  
     public function login(Request $request)
