@@ -18,11 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::post('register', 'UserController@register');
-Route::post('login', 'UserController@authenticate');
+Route::post('login', 'UserController@login');
 Route::get('open', 'DataController@open');
 
-Route::group(['middleware' => ['jwt.verify']], function() {
-    Route::get('user', 'UserController@getAuthenticatedUser');
+Route::group(['middleware' => ['auth.jwt']], function() {
+    Route::get('logout', 'ApiController@logout');
+    Route::get('user', 'UserController@getAuthUser');
     Route::get('closed', 'DataController@closed');
     Route::get('departments', 'DepartmentController@index');
     Route::get('departments/{id}', 'DepartmentController@show');
