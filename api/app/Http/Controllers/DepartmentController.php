@@ -63,16 +63,22 @@ class DepartmentController extends Controller
     public function update(Request $request, $id)
     {
         $department = $this->user->departments()->find($id);
-    
+        // $department = Department::find($id);
+        $department->name = request('name');
+        $department->dept_manager = request('dept_manager');
+        $department->save();
+        $request->validate([
+            'name' => 'required',
+            'dept_manager' => 'required',
+     ]);
         if (!$department) {
             return response()->json([
                 'success' => false,
                 'message' => 'Sorry, department with id ' . $id . ' cannot be found'
             ], 400);
         }
-    
-        $updated = $department->fill($request->all())
-            ->save();
+        // $updated = $department->update(['name' => $name, 'dept_manager' => $dept_manager]);
+        $updated = $department->update($request->all());
     
         if ($updated) {
             return response()->json([
